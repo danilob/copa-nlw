@@ -8,6 +8,7 @@ import { AuthContextProvider } from "./src/contexts/AuthContext";
 import { Find } from "./src/screens/Find";
 
 import { Pools } from "./src/screens/Pools";
+import { Routes } from "./src/routes";
 
 
 export default function App() {
@@ -21,7 +22,7 @@ export default function App() {
           translucent
         />
         {
-          fontsLoaded ? <Pools/>: <Loading/>
+          fontsLoaded ? <Routes/>: <Loading/>
         }
       </AuthContextProvider>
     </NativeBaseProvider>
