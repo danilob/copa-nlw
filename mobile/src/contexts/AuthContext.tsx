@@ -32,7 +32,7 @@ export function AuthContextProvider({children}: AuthProviderProps){
 	const [user, setUser] = useState<UserProps>({} as UserProps)
 	
 	const [request, response, promptAsync] = Google.useAuthRequest({
-		clientId: '596705280175-ce7spknke4hptj73tgg1fhsr1n2hiflg.apps.googleusercontent.com',
+		clientId: process.env.CLIENT_ID,
 		redirectUri: AuthSession.makeRedirectUri({useProxy: true}), 
 		scopes: ['profile','email']
 	})
@@ -42,7 +42,7 @@ export function AuthContextProvider({children}: AuthProviderProps){
 			setIsUserLoading(true)
 			await promptAsync();
 		} catch (error) {
-			console.log(error);
+			//console.log(error);
 			throw error;
 		} finally{
 			setIsUserLoading(false)
@@ -52,7 +52,7 @@ export function AuthContextProvider({children}: AuthProviderProps){
 	}
 
 	async function signWithGoogle(access_token: string){
-		// console.log("Token de autenticação ==>", access_token)
+		// //console.log("Token de autenticação ==>", access_token)
 		try {
 			setIsUserLoading(true)
 			const tokenResponse = await api.post('/users', {access_token})	
@@ -61,7 +61,7 @@ export function AuthContextProvider({children}: AuthProviderProps){
 			const userInfoResponse = await api.get('/me');
 			setUser(userInfoResponse.data.user)
 		} catch (error) {
-			console.log(error)
+			//console.log(error)
 			throw error;
 		}finally{
 			setIsUserLoading(false)

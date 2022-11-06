@@ -7,13 +7,26 @@ interface Props {
   code: string;
   position: 'left' | 'right';
   onChangeText: (value: string) => void;
+  value?: number;
+  closed?: boolean;
 }
 
-export function Team({ code, position, onChangeText }: Props) {
+export function Team({ code, position, onChangeText, value, closed }: Props) {
+  //console.log(value,closed)
   return (
     <HStack alignItems="center">
       {position === 'left' && <CountryFlag isoCode={code} size={25} style={{ marginRight: 12 }} />}
-
+      {closed?
+        <Input
+        w={10}
+        h={9}
+        textAlign="center"
+        fontSize="xs"
+        keyboardType="numeric"
+        onChangeText={onChangeText}
+        value = {value?value.toString():''}
+      />
+      :
       <Input
         w={10}
         h={9}
@@ -22,6 +35,8 @@ export function Team({ code, position, onChangeText }: Props) {
         keyboardType="numeric"
         onChangeText={onChangeText}
       />
+      }
+      
 
       {position === 'right' && <CountryFlag isoCode={code} size={25} style={{ marginLeft: 12 }} />}
     </HStack>
